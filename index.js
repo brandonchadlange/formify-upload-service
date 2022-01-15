@@ -1,11 +1,13 @@
-const GoogleCloud = require("./providers/google-cloud");
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
-const providers = {
-  GoogleCloud: new GoogleCloud(),
-};
+const routes = require("./routes");
 
-try {
-  providers.GoogleCloud.getFolders();
-} catch (err) {
-  console.log(err);
-}
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+app.use("/api", routes);
+
+app.listen(3000);
